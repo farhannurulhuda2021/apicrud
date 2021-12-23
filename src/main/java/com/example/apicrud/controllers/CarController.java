@@ -1,10 +1,12 @@
 package com.example.apicrud.controllers;
 
 import com.example.apicrud.entities.CarEntity;
+import com.example.apicrud.entities.CarImage;
 import com.example.apicrud.repositories.CarRepository;
 import com.example.apicrud.response.CommonResponse;
 import com.example.apicrud.response.CommonResponseGenerator;
 import com.example.apicrud.services.CarService;
+import com.example.apicrud.wrappers.CarImageWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -94,6 +96,16 @@ public class CarController {
         try {
             carList = carService.getAll();
             return commonResponseGenerator.successResponse(carList,"Data has been deleted id : "+id);
+        } catch (Exception e){
+            return commonResponseGenerator.failedResponse(e.getMessage());
+        }
+    }
+
+    @PostMapping(value = "uploadCar")
+    public CommonResponse<CarImage> upload(@RequestBody CarImageWrapper param){
+        try {
+            CarImage car = carService.upload(param);
+            return commonResponseGenerator.successResponse(car,"Success upload image");
         } catch (Exception e){
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
