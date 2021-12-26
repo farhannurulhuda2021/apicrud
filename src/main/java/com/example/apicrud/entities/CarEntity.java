@@ -1,10 +1,12 @@
 package com.example.apicrud.entities;
 
+import com.example.apicrud.audit.AuditableBase;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "car")
-public class CarEntity {
+public class CarEntity extends AuditableBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
